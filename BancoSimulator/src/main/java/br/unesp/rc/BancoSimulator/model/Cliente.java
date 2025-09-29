@@ -2,6 +2,8 @@ package br.unesp.rc.BancoSimulator.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,6 +59,7 @@ public class Cliente {
     private String senha;
 
 
+    @JsonIgnore
     @OneToMany(
         mappedBy = "cliente",
         cascade = CascadeType.ALL,

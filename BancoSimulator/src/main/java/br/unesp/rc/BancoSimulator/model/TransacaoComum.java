@@ -19,7 +19,7 @@ public class TransacaoComum extends Transacao{
 
     @ManyToOne
     @JoinColumn(
-        name = "conta_destino",
+        name = "conta_destino_id",
         nullable = false
     )
     private Conta contaDestino;

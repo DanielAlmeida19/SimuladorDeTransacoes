@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.unesp.rc.BancoSimulator.dto.TransacaoComumDTO;
 import br.unesp.rc.BancoSimulator.model.TransacaoComum;
 import br.unesp.rc.BancoSimulator.service.TransacaoComumService;
 
@@ -66,9 +67,9 @@ public class TransacaoComumController {
     }
 
     @PostMapping(value = "/save", produces = "application/json")
-    public ResponseEntity<?> save(@RequestBody TransacaoComum transacao) {
+    public ResponseEntity<?> save(@RequestBody TransacaoComumDTO transacao) {
         try {
-            TransacaoComum newTransacaoComum = transacaoService.save(transacao);
+            TransacaoComum newTransacaoComum = transacaoService.transacaoPendenteProducer(transacao);
 
             // Caso de sucesso
             return new ResponseEntity<TransacaoComum>(

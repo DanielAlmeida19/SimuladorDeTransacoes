@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.unesp.rc.BancoSimulator.dto.ContaDTO;
 import br.unesp.rc.BancoSimulator.model.Conta;
 import br.unesp.rc.BancoSimulator.model.mapper.EntityMapper;
 import br.unesp.rc.BancoSimulator.repository.ContaRepository;
@@ -18,6 +19,9 @@ public class ContaService {
 
     @Autowired
     ContaRepository contaRepository;
+
+    @Autowired
+    ClienteService clienteService;
 
     public List<Conta> findAll() {
         List<Conta> contas;
@@ -32,14 +36,16 @@ public class ContaService {
         Optional<Conta> existingConta = contaRepository.findById(id);
         
         if (existingConta.isEmpty()) {
-                throw new NoSuchElementException("Não encontrada transação com ID: " + id);
-            }
+                throw new NoSuchElementException("Não encontrada conta com ID: " + id);
+    }
 
         return existingConta.get();
 
     }
 
-    public Conta save(Conta conta) {
+    public Conta save(ContaDTO cDto) {
+        Conta conta = cDto.toConta(clienteService.findById(cDto.clienteId()));
+        
         Conta newConta = contaRepository.save(conta);
         return newConta;
     }

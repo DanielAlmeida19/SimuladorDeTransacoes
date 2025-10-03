@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.unesp.rc.BancoSimulator.dto.ContaDTO;
 import br.unesp.rc.BancoSimulator.model.Conta;
 import br.unesp.rc.BancoSimulator.service.ContaService;
 
@@ -66,7 +67,7 @@ public class ContaController {
     }
 
     @PostMapping(value = "/save", produces = "application/json")
-    public ResponseEntity<?> save(@RequestBody Conta conta) {
+    public ResponseEntity<?> save(@RequestBody ContaDTO conta) {
         try {
             Conta newConta = contaService.save(conta);
 

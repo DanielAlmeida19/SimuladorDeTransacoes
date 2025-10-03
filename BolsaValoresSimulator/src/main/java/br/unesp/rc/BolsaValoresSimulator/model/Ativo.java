@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Ativo {
+public abstract class Ativo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

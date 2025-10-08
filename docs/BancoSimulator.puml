@@ -1,0 +1,68 @@
+@startuml
+skinparam defaultFontSize 12
+class Cliente {
+  -id: Long
+  -nome: String
+  -cpf: String
+  -email: String
+  -senha: String
+  + Cliente()
+}
+class Conta {
+  -id: Long
+  -numero: String
+  -agencia: String
+  -tipo: TipoConta
+  -saldo: BigDecimal
+  + Conta()
+}
+class Transacao {
+  -id: Long
+  -tipo: TipoTransacao
+  -valor: BigDecimal
+  -data: LocalDateTime
+  -status: StatusTransacao
+  -contaOrigem: Conta
+  + Transacao()
+}
+
+class TransacaoComum {
+  contaDestino: Conta
+}
+
+class Investimento {
+  -idFundo: String
+}
+
+enum TipoConta {
+  CORRENTE
+  POUPANCA
+}
+enum TipoTransacao {
+  PIX
+  TED
+  DOC
+  PAGAMENTO
+  DEBITO_AUTOMATICO
+}
+enum StatusTransacao {
+
+  PENDENTE
+  PROCESSANDO
+  CONFIRMADA
+  FINALIZADA
+  CANCELADA
+  FALHOU
+}
+
+Cliente "1" <--> "0..*" Conta : "possui"
+Conta "1" <-- "0..*" Transacao: "origina"
+Conta "1" <-right- "0..*" TransacaoComum: "destina"
+Investimento -up-|> Transacao
+TransacaoComum --|> Transacao
+
+
+Transacao .left. StatusTransacao
+Transacao .right. TipoTransacao
+Conta .left. TipoConta
+@enduml

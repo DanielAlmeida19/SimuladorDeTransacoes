@@ -1,6 +1,8 @@
 package br.unesp.rc.BancoSimulator.model;
 
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,9 +54,10 @@ public class Conta {
     @Column(
         name = "saldo",
         nullable = false,
-        precision = 2
+        precision = 19,
+        scale = 2
     )
-    private float saldo;
+    private BigDecimal saldo;
 
     @JoinColumn(name = "cliente_id")
     @ManyToOne

@@ -1,5 +1,6 @@
 package br.unesp.rc.BancoSimulator.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.unesp.rc.BancoSimulator.model.Conta;
@@ -10,7 +11,7 @@ import br.unesp.rc.BancoSimulator.model.TransacaoComum;
 public record TransacaoComumDTO(
     long id,
     TipoTransacao tipoTransacao,
-    float valor,
+    BigDecimal valor,
     LocalDateTime horario,
     StatusTransacao statusTransacao,
     long contaOrigemId,

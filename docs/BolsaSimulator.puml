@@ -1,0 +1,70 @@
+@startuml
+skinparam defaultFontSize 12
+
+class Ativo {
+  -id: Long
+  +Ativo()
+}
+
+class AtivoBolsa {
+  -valorCota: float
+  -valorPatriminial:float
+  -tipoAtivo: TipoAtivo
+  -cotasNegociaveis: int
+  -ultimoProvento: float
+}
+
+enum TipoAtivo {
+  FUNDO_IMOBILIARIO
+  ACAO
+}
+
+class AtivoTesouro {
+  -valorTitulo: float
+  -valorFundo:float
+  -indexador: Indexador
+  -rentabilidade: float
+}
+
+enum Indexador {
+  CDI
+  IPCA
+  SELIC
+  NENHUM
+}
+
+class Transacao {
+  -id: Long
+  -idPessoa: Long
+  -idAtivo:Long
+  -tipo: TipoTransacao
+  -valor: BigDecimal
+  -data: LocalDateTime
+  -status: StatusTransacao
+  + Transacao()
+}
+
+enum TipoTransacao {
+  INVESTIMENTO
+  PROVENTO
+  RETIRADA
+}
+
+enum StatusTransacao {
+  PENDENTE
+  PROCESSANDO
+  CONFIRMADA
+  FINALIZADA
+  CANCELADA
+  FALHOU
+}
+
+
+Transacao "0..*" --> "1" Ativo
+AtivoBolsa -up-|> Ativo
+AtivoTesouro -up-|> Ativo
+AtivoBolsa .. TipoAtivo
+AtivoTesouro .. Indexador
+Transacao .. TipoTransacao
+Transacao .. StatusTransacao
+@enduml

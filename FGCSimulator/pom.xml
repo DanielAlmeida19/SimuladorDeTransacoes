@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.unesp.rc</groupId>
-	<artifactId>BolsaValoresSimulator</artifactId>
+	<artifactId>FGCSimulator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BolsaValoresSimulator</name>
+	<name>FGCSimulator</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -62,7 +62,7 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
-		</dependency>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

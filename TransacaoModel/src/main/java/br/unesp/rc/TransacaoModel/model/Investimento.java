@@ -20,5 +20,5 @@ public class Investimento extends Transacao{
         name = "id_ativo",
         nullable = false
     )
-    private long idAtivo;
+    private String idAtivo;
 }

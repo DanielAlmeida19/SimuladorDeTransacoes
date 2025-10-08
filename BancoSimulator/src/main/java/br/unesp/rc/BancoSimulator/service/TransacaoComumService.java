@@ -95,7 +95,7 @@ public class TransacaoComumService {
             Conta contaOrigem = contaService.findById(transacaoComumDTO.contaOrigemId());
             Conta contaDestino = contaService.findById(transacaoComumDTO.contaDestinoId());
 
-            contaDestino.setSaldo(contaDestino.getSaldo() + transacaoComumDTO.valor());
+            contaDestino.setSaldo(contaDestino.getSaldo().add(transacaoComumDTO.valor()));
             TransacaoComum transacao = transacaoComumDTO.toTransacaoComum(contaOrigem, contaDestino);
             transacao.setStatusTransacao(StatusTransacao.PROCESSANDO);
 
@@ -117,7 +117,7 @@ public class TransacaoComumService {
             Conta contaDestino = contaService.findById(transacaoComumDTO.contaDestinoId());
 
             // Atualizando a conta de origem da transação
-            contaOrigem.setSaldo(contaOrigem.getSaldo() - transacaoComumDTO.valor());
+            contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(transacaoComumDTO.valor()));
             TransacaoComum transacao = transacaoComumDTO.toTransacaoComum(contaOrigem, contaDestino);
             transacao.setStatusTransacao(StatusTransacao.FINALIZADA);
 

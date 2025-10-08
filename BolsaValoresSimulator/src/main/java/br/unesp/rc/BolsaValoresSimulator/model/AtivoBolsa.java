@@ -1,5 +1,7 @@
 package br.unesp.rc.BolsaValoresSimulator.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.EqualsAndHashCode;
@@ -15,18 +17,34 @@ import lombok.ToString;
 public class AtivoBolsa extends Ativo {
 
     @Column(
+        name = "ticker",
+        nullable = false,
+        length = 6
+    )
+    private String ticker;
+
+    @Column(
+        name = "nome_companhia",
+        nullable = false,
+        length = 50
+    )
+    private String nomeCompanhia;
+
+    @Column(
         name = "valor_cota",
         nullable = false,
-        precision = 2
+        precision = 19,
+        scale = 2
     )
-    private float valorCota;
+    private BigDecimal valorCota;
 
     @Column(
         name = "valor_patrimonial",
         nullable = false,
-        precision = 2
+        precision = 19,
+        scale = 2
     )
-    private float valorPatrimonial;
+    private BigDecimal valorPatrimonial;
 
     @Column(
         name = "cotas_negociaveis",

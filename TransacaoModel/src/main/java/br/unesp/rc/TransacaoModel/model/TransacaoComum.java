@@ -1,8 +1,9 @@
 package br.unesp.rc.BancoSimulator.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +14,13 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString
-@DiscriminatorValue("investimento")
-public class Investimento extends Transacao{
-    
-    @Column(
-        name = "id_ativo",
+@DiscriminatorValue("comum")
+public class TransacaoComum extends Transacao{
+
+    @ManyToOne
+    @JoinColumn(
+        name = "conta_destino_id",
         nullable = false
     )
-    private long idAtivo;
+    private Conta contaDestino;
 }

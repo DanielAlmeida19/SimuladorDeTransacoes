@@ -1,4 +1,4 @@
-package br.unesp.rc.BancoSimulator.controller;
+package br.unesp.rc.FGCSimulator.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -15,32 +15,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.unesp.rc.BancoSimulator.dto.InvestimentoDTO;
-import br.unesp.rc.BancoSimulator.model.Investimento;
-import br.unesp.rc.BancoSimulator.service.InvestimentoService;
+import br.unesp.rc.FGCSimulator.model.FGC;
+import br.unesp.rc.FGCSimulator.service.FGCService;
 
 @RestController
-@RequestMapping("/investimento")
-public class InvestimentoController {
+@RequestMapping("/fgc")
+public class FGCController {
 
     @Autowired
-    InvestimentoService investimentoService;
+    FGCService fgcService;
 
     @GetMapping(value = "/findAll", produces = "application/json")
     public ResponseEntity<?> findAll() {
         try {
-            List<Investimento> investimentos = investimentoService.findAll();
+            List<FGC> fgcs = fgcService.findAll();
 
             // Caso de sucesso
-            return new ResponseEntity<List<Investimento>>(
-                investimentos,
+            return new ResponseEntity<List<FGC>>(
+                fgcs,
                 HttpStatus.OK
             );
         } catch (Exception e) {
-            System.out.println("Erro ao retornar investimentos: " + e);
+            System.out.println("Erro ao retornar fgcs: " + e);
 
             return new ResponseEntity<Error>(
-                new Error("Erro ao retornar investimentos", e),
+                new Error("Erro ao retornar fgcs", e),
                 HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
@@ -49,14 +48,14 @@ public class InvestimentoController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<?> getById(@PathVariable(value = "id") long id) {
         try {
-            Investimento investimento = investimentoService.findById(id);
+            FGC fgc = fgcService.findById(id);
 
             // Caso de sucesso
-            return new ResponseEntity<Investimento>(
-                investimento, HttpStatus.OK
+            return new ResponseEntity<FGC>(
+                fgc, HttpStatus.OK
             );
         } catch (NoSuchElementException e) {
-            
+
             // Caso não encontre
             System.out.println(e);
             return new ResponseEntity<Error>(
@@ -67,42 +66,42 @@ public class InvestimentoController {
     }
 
     @PostMapping(value = "/save", produces = "application/json")
-    public ResponseEntity<?> save(@RequestBody InvestimentoDTO investimentoDTO) {
+    public ResponseEntity<?> save(@RequestBody FGC fgc) {
         try {
-            Investimento newInvestimento = investimentoService.investimentoPendenteProducer(investimentoDTO);
+            FGC newFGC = fgcService.save(fgc);
 
             // Caso de sucesso
-            return new ResponseEntity<Investimento>(
-                newInvestimento, 
+            return new ResponseEntity<FGC>(
+                newFGC,
                 HttpStatus.OK
             );
         } catch (Exception e) {
-            
+
             // Caso de fracasso
             System.out.println("Algo deu errado ao salvar o elemento: " + e);
             return new ResponseEntity<Error>(
-                new Error(), 
+                new Error(),
                 HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
     }
 
     @PutMapping(value = "/update", produces = "application/json")
-    public ResponseEntity<?> update(@RequestBody Investimento investimento) {
+    public ResponseEntity<?> update(@RequestBody FGC fgc) {
         try {
-            Investimento updatedInvestimento = investimentoService.update(investimento);
+            FGC updatedFGC = fgcService.update(fgc);
 
             // Caso de sucesso
-            return new ResponseEntity<Investimento>(
-                updatedInvestimento, 
+            return new ResponseEntity<FGC>(
+                updatedFGC,
                 HttpStatus.OK
             );
         } catch (NoSuchElementException e) {
-            
+
             // Caso não encontre
             System.out.println(e);
             return new ResponseEntity<Error>(
-                new Error("Elemento não encontrado", e), 
+                new Error("Elemento não encontrado", e),
                 HttpStatus.INTERNAL_SERVER_ERROR
             );
         } catch (Exception e) {
@@ -119,12 +118,12 @@ public class InvestimentoController {
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<?> delete(@PathVariable(value = "id") long id) {
         try {
-            investimentoService.delete(id);
+            fgcService.delete(id);
 
             // Caso de sucesso
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            
+
             // Caso de fracasso
             System.out.println("Erro ao deletar elemento: " + e);
             return new ResponseEntity<Error>(
@@ -136,3 +135,4 @@ public class InvestimentoController {
 
 
 }
+

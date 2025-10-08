@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontSize 12
+
+class FGC {
+  valorDisponivel: float
+  valorSeguravel:float
+  regrasNegocio: List<RegraFGC>
+}
+
+interface RegraFGC {
+  + aplicarRegra(): boolean
+}
+
+class Transacao {
+  -id: Long
+  -idPessoa: Long
+  -idAtivo:Long
+  -tipo: TipoTransacao
+  -valor: BigDecimal
+  -data: LocalDateTime
+  -status: StatusTransacao
+  + Transacao()
+}
+
+FGC "1" --> "0..*" RegraFGC
+FGC "1" -left-> "0..*" Transacao
+@enduml

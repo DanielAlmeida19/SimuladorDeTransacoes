@@ -1,6 +1,5 @@
 package br.unesp.rc.BancoSimulator.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -45,10 +44,9 @@ public class Transacao {
     @Column(
         name = "value",
         nullable = false,
-        precision = 19,
-        scale = 2
+        precision = 2
     )
-    private BigDecimal value;
+    private float value;
 
     @Column(
         name = "date_time",
